@@ -1,0 +1,98 @@
+buy-charge {
+	p {
+		font-size: 2rem !important;
+	}
+    input,
+    ion-input {
+        text-align: left;
+        direction: ltr;
+    }
+    .item-radio img {
+        -webkit-filter: grayscale(100%);
+        /* Safari 6.0 - 9.0 */
+        filter: grayscale(100%);
+    }
+    .item-radio-checked img {
+        -webkit-filter: grayscale(0%);
+        /* Safari 6.0 - 9.0 */
+        filter: grayscale(0%);
+    }
+    .item-ios,
+    .item-ios [item-right] {
+        margin: 0px !important;
+        padding-left: 0px;
+    }
+    .btn-icon::before {
+        width: 40px;
+        height: 40px;
+    }
+    .btn-icon {
+        font-size: 40px;
+    }
+    #search-btn {
+        width: 40px;
+        height: 40px;
+    }
+    .item-inner {
+        margin-left: 0px !important;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .select-icon {
+        margin-right: 10px;
+    }
+    #MTN {
+        width: 64px;
+        height: 64px;
+        background: url("../../assets/images/operators.png") no-repeat center 0;
+        display: inline-block;
+        margin: 5px;
+    }
+    #MCI {
+        width: 64px;
+        height: 64px;
+        background: url("../../assets/images/operators.png") no-repeat center -64px;
+        display: inline-block;
+        margin: 5px;
+    }
+    #RTL {
+        width: 64px;
+        height: 64px;
+        background: url("../../assets/images/operators.png") no-repeat center -128px;
+        display: inline-block;
+        margin: 5px;
+    }
+    .outline-out {
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px transparent;
+        position: relative;
+    }
+    .outline-out:before {
+        content: '';
+        position: absolute;
+        border: color($colors, bluegrey) solid 4px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+        -webkit-transition-property: top, right, bottom, left;
+        transition-property: top, right, bottom, left;
+    }
+    .selected-div:before {
+        top: -8px;
+        right: -8px;
+        bottom: -8px;
+        left: -8px;
+    }
+	.highlight {
+		font-size: 2.6rem;
+		color: color($colors, danger);
+		font-weight: bold;
+	}
+}

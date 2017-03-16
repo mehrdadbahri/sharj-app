@@ -1,0 +1,31 @@
+pay-bill {
+	p {
+		font-size: 2rem !important;
+	}
+	input,
+	ion-input {
+		text-align: left;
+		direction: ltr;
+	}
+	.item-radio img {
+		-webkit-filter: grayscale(100%);
+		/* Safari 6.0 - 9.0 */
+		filter: grayscale(100%);
+	}
+	.item-radio-checked img {
+		-webkit-filter: grayscale(0%);
+		/* Safari 6.0 - 9.0 */
+		filter: grayscale(0%);
+	}
+	.item-ios,
+	.item-ios [item-right] {
+		margin: 0px !important;
+		padding-left: 0px;
+	}
+	.text-center {
+    text-align: center;
+  }
+  .select-icon {
+    margin-right: 10px;
+  }
+}

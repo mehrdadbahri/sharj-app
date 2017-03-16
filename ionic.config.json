@@ -1,0 +1,10 @@
+{
+    "name": "آسان شارژ",
+    "app_id": "",
+    "v2": true,
+    "typescript": true,
+    "proxies": [{
+        "path": "/api",
+        "proxyUrl": "http://chr724.ir"
+    }]
+}

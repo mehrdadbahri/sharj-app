@@ -1,0 +1,35 @@
+buy-package {
+	h1 {
+		font-size: 2.2rem !important;
+	}
+    h2 {
+        font-size: 1.6rem !important;
+    }
+    ion-card {
+    	border-top: 4px solid color($colors, orange);
+    	border-radius: 20px !important;
+    	padding-right: 10px !important;
+    	min-width: 300px;
+    }
+    ion-checkbox {
+        margin-right: 9px !important;
+    }
+    .toolbar-ios .segment-button {
+    	max-width: 130px;
+    }
+    .item,
+    .item-md {
+        background-color: color($colors, white);
+    }
+    .item-inner {
+    	padding-right: 0px !important;
+    }
+    .right-border {
+        border-right: 1px solid color($colors, bluegrey);
+    }
+    .price {
+        font-size: 2.4rem;
+        color: color($colors, accent);
+        font-weight: bold;
+    }
+}

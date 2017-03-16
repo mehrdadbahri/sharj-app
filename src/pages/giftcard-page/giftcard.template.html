@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>خرید گیفت کارت</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="container" padding overflow-scroll="true">
+  <ion-row>
+    <ion-col *ngFor="let item of giftcards">
+      <ion-card>
+        <ion-card-title>
+          <ion-row>
+            <ion-col ion-col col-4>
+              <ion-avatar item-right>
+                <img [src]="item.imgSrc" style="margin-right: -10px;">
+              </ion-avatar>
+            </ion-col>
+            <ion-col ion-col col-8 class='right-border'>
+              <p style="font-size: 2.6rem;">
+                {{ item.name }}
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-card-title>
+        <ion-item>
+          <span class="price">{{ item.price }} تومان</span>
+        </ion-item>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

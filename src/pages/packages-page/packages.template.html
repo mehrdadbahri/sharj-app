@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-segment color="white" [(ngModel)]="packageType">
+      <ion-segment-button value="regular">
+        بسته‌های تخفیفی
+      </ion-segment-button>
+      <ion-segment-button value="awesome">
+        بسته‌های شگفت انگیز
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="container" padding overflow-scroll="true">
+  <ion-item *ngIf="packageType == 'regular'">
+    <ion-icon name='funnel'></ion-icon>
+    <strong>تنظیمات نمایش بسته‌ها</strong>
+  </ion-item>
+  <ion-row *ngIf="packageType == 'regular'">
+    <ion-col col-6>
+      <ion-item>
+        <ion-label>
+          بسته‌های ساعتی
+        </ion-label>
+        <ion-checkbox [(ngModel)]="hourlyCheckbox" [disabled]="customerType == 'TDLTE'">
+        </ion-checkbox>
+      </ion-item>
+    </ion-col>
+    <ion-col col-6>
+      <ion-item>
+        <ion-label>
+          بسته‌های روزانه
+        </ion-label>
+        <ion-checkbox [(ngModel)]="dailyCheckbox" [disabled]="customerType == 'TDLTE'">
+        </ion-checkbox>
+      </ion-item>
+    </ion-col>
+    <ion-col col-6>
+      <ion-item>
+        <ion-label>
+          بسته‌های هفتگی
+        </ion-label>
+        <ion-checkbox [(ngModel)]="weeklyCheckbox" [disabled]="customerType == 'TDLTE'">
+        </ion-checkbox>
+      </ion-item>
+    </ion-col>
+    <ion-col col-6>
+      <ion-item>
+        <ion-label>
+          بسته‌های ماهانه
+        </ion-label>
+        <ion-checkbox [(ngModel)]="monthlyCheckbox" >
+        </ion-checkbox>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="packageType == 'regular'" radio-group [(ngModel)]="customerType">
+    <ion-col col-6 col-md-4>
+      <ion-item>
+        <ion-label>مشترکین اعتباری</ion-label>
+        <ion-radio value="prepaid"></ion-radio>
+      </ion-item>
+    </ion-col>
+    <ion-col col-6 col-md-4>
+      <ion-item>
+        <ion-label>مشترکین دائمی</ion-label>
+        <ion-radio value="postpaid"></ion-radio>
+      </ion-item>
+    </ion-col>
+    <ion-col col-md-4>
+      <ion-item>
+        <ion-label>مشترکین اینترنت ثابت TDLTE</ion-label>
+        <ion-radio value="TDLTE"></ion-radio>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ng-container *ngIf="packageType == 'awesome'">
+      <ion-col *ngFor="let item of awesomePackages">
+        <ion-card>
+          <ion-card-title>
+            <ion-row>
+              <ion-col ion-col col-4>
+                <h1>{{ item.name | trafficPipe }}</h1>
+                <h2>{{ item.name | timePipe }}</h2>
+              </ion-col>
+              <ion-col ion-col col-8 class='right-border'>
+                <p>
+                  بسته شگفت انگیز
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-card-title>
+          <ion-item>
+            <span class="price">{{ item.price }} تومان</span>
+            <div item-right>
+              <p ion-text color='danger'>
+                {{ item.name | customerPipe }}
+              </p>
+            </div>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ng-container>
+    <ng-container *ngIf="packageType == 'regular'">
+      <ion-col *ngFor="let item of packageList | filterPackages:customerType:hourlyCheckbox:dailyCheckbox:weeklyCheckbox:monthlyCheckbox">
+        <ion-card>
+          <ion-card-title>
+            <ion-row>
+              <ion-col ion-col col-4>
+                <h1>{{ item.name | trafficPipe }}</h1>
+                <h2>{{ item.name | timePipe }}</h2>
+              </ion-col>
+              <ion-col ion-col col-8 class='right-border'>
+                <p>
+                  {{ item.name | trafficDetailPipe }}
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-card-title>
+          <ion-item>
+            <span class="price">{{ item.price }} تومان</span>
+            <div item-right>
+              <p ion-text color='danger'>
+                {{ item.name | customerPipe }}
+              </p>
+            </div>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ng-container>
+  </ion-row>
+</ion-content>

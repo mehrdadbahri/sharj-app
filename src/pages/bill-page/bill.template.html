@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>پرداخت قبض</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="container" padding overflow-scroll="true">
+  <form [formGroup]="billForm" class="form" (ngSubmit)="onSubmit(billForm.value)">
+    <ion-list radio-group formControlName="payment_gateway">
+    <button type="button" ion-button block large icon-right color="orange" (click)="scan()">
+      <ion-icon name="barcode"></ion-icon>
+      اسکن بارکد قبض
+    </button>
+      <ion-item>
+        <ion-icon name='paper' item-left></ion-icon>
+        <ion-label>شناسه قبض</ion-label>
+        <ion-input type="text" maxlength="11" formControlName="bill_id" class="form-controll">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name='card' item-left></ion-icon>
+        <ion-label>شناسه پرداخت</ion-label>
+        <ion-input type="text" maxlength="11" formControlName="payment_id" class="form-controll"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name='phone-portrait' item-left></ion-icon>
+        <ion-label>شماره موبایل</ion-label>
+        <ion-input type="text" maxlength="11" formControlName="phone_number" class="form-controll"></ion-input>
+      </ion-item>
+      <ion-list-header>درگاه پرداخت</ion-list-header>
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="assets/images/mellat.png">
+        </ion-avatar>
+        <ion-label>درگاه بانک ملت</ion-label>
+        <ion-radio checked="true" value="Mellat"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="assets/images/saman.png">
+        </ion-avatar>
+        <ion-label>درگاه بانک سامان</ion-label>
+        <ion-radio value="Saman"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="assets/images/zarinpal.png">
+        </ion-avatar>
+        <ion-label>درگاه زرین پال</ion-label>
+        <ion-radio value="Zarinpal"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <div class="row">
+      <div class="col text-center">
+      <button ion-button round icon-right large type="submit" color="accent" [disabled]="!billForm.valid">
+          <ion-icon name="cart"></ion-icon>
+          پرداخت
+        </button>
+      </div>
+    </div>
+  </form>
+</ion-content>
