@@ -20,20 +20,20 @@ export class giftcardPage {
 				for (key in giftcards){
 					for (k in giftcards[key]){
 						if (giftcards[key][k].id.toLowerCase().includes('itunes'))
-							giftcards[key][k].imgSrc = '/assets/images/itunes.png';
+							giftcards[key][k].imgSrc = 'assets/images/itunes.png';
 						else if (giftcards[key][k].id.toLowerCase().includes('googleplay'))
-							giftcards[key][k].imgSrc = '/assets/images/google-play.png';
+							giftcards[key][k].imgSrc = 'assets/images/google-play.png';
 						else if (giftcards[key][k].id.toLowerCase().includes('microsoft'))
-							giftcards[key][k].imgSrc = '/assets/images/microsoft.png';
+							giftcards[key][k].imgSrc = 'assets/images/microsoft.png';
 						else if (giftcards[key][k].id.toLowerCase().includes('amazon'))
-							giftcards[key][k].imgSrc = '/assets/images/amazon.png';
+							giftcards[key][k].imgSrc = 'assets/images/amazon.png';
 						else if (giftcards[key][k].id.toLowerCase().includes('xbox'))
-							giftcards[key][k].imgSrc = '/assets/images/xbox.png';
+							giftcards[key][k].imgSrc = 'assets/images/xbox.png';
 						else if (giftcards[key][k].id.toLowerCase().includes('playstationplus'))
-							giftcards[key][k].imgSrc = '/assets/images/playstation+.png';
+							giftcards[key][k].imgSrc = 'assets/images/playstation+.png';
 						else if (giftcards[key][k].id.toLowerCase().includes('playstation')){
 							giftcards[key][k].name = giftcards[key][k].name.replace('Network', '');
-							giftcards[key][k].imgSrc = '/assets/images/playstation.png';
+							giftcards[key][k].imgSrc = 'assets/images/playstation.png';
 						}
 						temp.push(giftcards[key][k]);
 					}

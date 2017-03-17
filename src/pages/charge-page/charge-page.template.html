@@ -24,7 +24,7 @@
         </div>
       </ion-item>
       <ion-item>
-        <ion-icon name='phone-portrait' item-left></ion-icon>
+        <ion-icon name='phone-portrait' color='bluegrey' item-left></ion-icon>
         <ion-label>شماره موبایل</ion-label>
         <ion-input type="text" maxlength="11" placeholder="09123456789" formControlName="phone_number" class="form-controll" (focus)="showSearchIcon = false" (focusout)="onPhoneInputFocusout($event)" #phone_input></ion-input>
         <button ion-button icon-only item-right clear id="search-btn" *ngIf="showSearchIcon" (click)="onSearchContactClick(phone_input)">
@@ -32,31 +32,31 @@
         </button>
       </ion-item>
       <ion-item>
-        <ion-icon name='cash' item-left></ion-icon>
+        <ion-icon name='cash' color='bluegrey' item-left></ion-icon>
         <ion-label>مبلغ شارژ</ion-label>
         <ion-select formControlName="amount">
           <ion-option *ngFor="let item of chargeAmounts" [value]="item.value" [disabled]="chargeType=='card' && item.value==1000 && selectedOperator.value=='RTL'"> {{ item.name }} </ion-option>
         </ion-select>
       </ion-item>
       <ion-item *ngIf="chargeType == 'direct'">
-        <ion-icon name='color-wand' item-left></ion-icon>
+        <ion-icon name='color-wand' color='bluegrey' item-left></ion-icon>
         <ion-label>شارژ شگفت انگیز </ion-label>
         <ion-toggle formControlName="awesome"></ion-toggle>
       </ion-item>
       <ion-list-header>درگاه پرداخت</ion-list-header>
       <ion-item>
         <ion-avatar item-left>
-          <img src="assets/images/mellat.png">
-        </ion-avatar>
-        <ion-label>درگاه بانک ملت</ion-label>
-        <ion-radio checked="true" value="Mellat"></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-avatar item-left>
           <img src="assets/images/saman.png">
         </ion-avatar>
         <ion-label>درگاه بانک سامان</ion-label>
         <ion-radio value="Saman"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="assets/images/mellat.png">
+        </ion-avatar>
+        <ion-label>درگاه بانک ملت</ion-label>
+        <ion-radio checked="true" value="Mellat"></ion-radio>
       </ion-item>
       <ion-item>
         <ion-avatar item-left>

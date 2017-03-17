@@ -11,7 +11,7 @@ export class DataProvider {
 
 	getPackages() {
 		return new Promise<Object>(resolve => {
-			this.http.get('http://localhost:8100/api/services/v3/EasyCharge/initializeData')
+			this.http.get('http://chr724.ir/services/v3/EasyCharge/initializeData')
 			.map(res => res.json())
 			.subscribe(data => {
 				var packages : Object = data.products.internetPackage.mtn;
@@ -25,7 +25,7 @@ export class DataProvider {
 
 	getGiftcards() {
 		return new Promise<Object>(resolve => {
-			this.http.get('http://localhost:8100/api/services/v3/EasyCharge/initializeData')
+			this.http.get('http://chr724.ir/services/v3/EasyCharge/initializeData')
 			.map(res => res.json())
 			.subscribe(data => {
 				var giftcards : Object = data.products.giftCard;

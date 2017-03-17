@@ -25,7 +25,7 @@ export class billPage {
 				])),
 			bill_id: new FormControl('', Validators.required),
 			payment_id: new FormControl('', Validators.required),
-			payment_gateway: new FormControl('Mellat', Validators.required)
+			payment_gateway: new FormControl('Saman', Validators.required)
 		});
 	}
 

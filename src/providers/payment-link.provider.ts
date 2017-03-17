@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -16,35 +16,46 @@ export class PaymentLinkProvider {
 		phone_number : string,
 		gateway : string,
 		platform : string
-	) : Promise<string> {
-		return new Promise<string>(resolve => {
-			let json : Object = {
-				'type' : type,
-				'amount' : amount,
-				'cellphone' : phone_number,
-				'webserviceId' : this.webserviceID,
-				'issuer' : gateway,
-				'scriptVersion' : platform,
-				'firstOutputType' : 'json',
-				'secondOutputType' : 'view',
-				'redirectToPage' : 'False'
+		) {
+		let data : Object = {
+			'type' : type,
+			'amount' : amount+'',
+			'cellphone' : phone_number,
+			'webserviceId' : this.webserviceID,
+			'issuer' : gateway,
+			'scriptVersion' : platform,
+			'firstOutputType' : 'json',
+			'secondOutputType' : 'view',
+			'redirectToPage' : 'False'
 
-			};
-			let data : string = JSON.stringify(json);
-			console.log(data);
-			let url : string = 'http://localhost:8100/api/services/v3/EasyCharge/topup';
-			this.http.post(url, data)
-			.map(res => res.json())
-			.subscribe(result => {
-				result = JSON.parse(result);
-				if(result.status == 'Success') {
-					resolve(result.paymentInfo.url);
-				}
-			},
-			err => {
-				resolve(err);
-			});
-		});
+		};
+		let url : string = 'http://chr724.ir/services/v3/EasyCharge/topup';
+		let headers = new Headers({'Content-Type':'application/json'});
+		let options = new RequestOptions({ headers: headers});
+		return this.http.post(url, JSON.stringify(data), options);
+	}
+
+	product(
+		productId : string,
+		phone_number : string,
+		gateway : string,
+		platform : string
+		) {
+		let data : Object = {
+			'productId' : productId,
+			'cellphone' : phone_number,
+			'webserviceId' : this.webserviceID,
+			'issuer' : gateway,
+			'scriptVersion' : platform,
+			'firstOutputType' : 'json',
+			'secondOutputType' : 'view',
+			'redirectToPage' : 'False'
+
+		};
+		let url : string = 'http://chr724.ir/services/v3/EasyCharge/BuyProduct';
+		let headers = new Headers({'Content-Type':'application/json'});
+		let options = new RequestOptions({ headers: headers});
+		return this.http.post(url, JSON.stringify(data), options);
 	}
 
 }
