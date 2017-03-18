@@ -30,6 +30,7 @@ export class chargePage {
 	]
 	private selectedOperator : Object = this.operators[0];
 	private browser: InAppBrowser;
+	private saveContact : Boolean = true;
 
 	constructor(
 		private platform : Platform,
@@ -71,6 +72,7 @@ export class chargePage {
 			(contact: Contact) => {
 				if (contact.phoneNumbers){
 					input.value = contact.phoneNumbers[0];
+					this.saveContact = false;
 				}
 			}, (error: any) => {
 				console.log("error in picking contact!");
@@ -94,6 +96,8 @@ export class chargePage {
 		}
 		let chargeCode : string;
 		if(this.chargeType == 'direct') {
+			if(this.saveContact) 
+				this.storage.set('phone', values.phone_number);
 			chargeCode = this.getOperator(values.phone_number);
 			if(values.awesome) {
 				chargeCode = chargeCode.concat('!');

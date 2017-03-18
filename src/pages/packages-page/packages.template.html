@@ -14,72 +14,74 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="container" padding overflow-scroll="true">
-  <ion-item *ngIf="packageType == 'regular'">
-    <ion-icon name='funnel'></ion-icon>
-    <strong>تنظیمات نمایش بسته‌ها</strong>
-  </ion-item>
-  <ion-row *ngIf="packageType == 'regular'">
-    <ion-col col-6>
-      <ion-item>
-        <ion-label>
-          بسته‌های ساعتی
-        </ion-label>
-        <ion-checkbox [(ngModel)]="hourlyCheckbox" [disabled]="customerType == 'TDLTE'">
-        </ion-checkbox>
-      </ion-item>
-    </ion-col>
-    <ion-col col-6>
-      <ion-item>
-        <ion-label>
-          بسته‌های روزانه
-        </ion-label>
-        <ion-checkbox [(ngModel)]="dailyCheckbox" [disabled]="customerType == 'TDLTE'">
-        </ion-checkbox>
-      </ion-item>
-    </ion-col>
-    <ion-col col-6>
-      <ion-item>
-        <ion-label>
-          بسته‌های هفتگی
-        </ion-label>
-        <ion-checkbox [(ngModel)]="weeklyCheckbox" [disabled]="customerType == 'TDLTE'">
-        </ion-checkbox>
-      </ion-item>
-    </ion-col>
-    <ion-col col-6>
-      <ion-item>
-        <ion-label>
-          بسته‌های ماهانه
-        </ion-label>
-        <ion-checkbox [(ngModel)]="monthlyCheckbox" >
-        </ion-checkbox>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row *ngIf="packageType == 'regular'" radio-group [(ngModel)]="customerType">
-    <ion-col col-6 col-md-4>
-      <ion-item>
-        <ion-label>مشترکین اعتباری</ion-label>
-        <ion-radio value="prepaid"></ion-radio>
-      </ion-item>
-    </ion-col>
-    <ion-col col-6 col-md-4>
-      <ion-item>
-        <ion-label>مشترکین دائمی</ion-label>
-        <ion-radio value="postpaid"></ion-radio>
-      </ion-item>
-    </ion-col>
-    <ion-col col-md-4>
-      <ion-item>
-        <ion-label>مشترکین اینترنت ثابت TDLTE</ion-label>
-        <ion-radio value="TDLTE"></ion-radio>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
+  <ng-container *ngIf="packageType == 'regular'  && !showForm">
+    <ion-item>
+      <ion-icon name='funnel'></ion-icon>
+      <strong>تنظیمات نمایش بسته‌ها</strong>
+    </ion-item>
+    <ion-row>
+      <ion-col col-6>
+        <ion-item>
+          <ion-label>
+            بسته‌های ساعتی
+          </ion-label>
+          <ion-checkbox [(ngModel)]="hourlyCheckbox" [disabled]="customerType == 'TDLTE'">
+          </ion-checkbox>
+        </ion-item>
+      </ion-col>
+      <ion-col col-6>
+        <ion-item>
+          <ion-label>
+            بسته‌های روزانه
+          </ion-label>
+          <ion-checkbox [(ngModel)]="dailyCheckbox" [disabled]="customerType == 'TDLTE'">
+          </ion-checkbox>
+        </ion-item>
+      </ion-col>
+      <ion-col col-6>
+        <ion-item>
+          <ion-label>
+            بسته‌های هفتگی
+          </ion-label>
+          <ion-checkbox [(ngModel)]="weeklyCheckbox" [disabled]="customerType == 'TDLTE'">
+          </ion-checkbox>
+        </ion-item>
+      </ion-col>
+      <ion-col col-6>
+        <ion-item>
+          <ion-label>
+            بسته‌های ماهانه
+          </ion-label>
+          <ion-checkbox [(ngModel)]="monthlyCheckbox">
+          </ion-checkbox>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row radio-group [(ngModel)]="customerType">
+      <ion-col col-6 col-md-4>
+        <ion-item>
+          <ion-label>مشترکین اعتباری</ion-label>
+          <ion-radio value="prepaid"></ion-radio>
+        </ion-item>
+      </ion-col>
+      <ion-col col-6 col-md-4>
+        <ion-item>
+          <ion-label>مشترکین دائمی</ion-label>
+          <ion-radio value="postpaid"></ion-radio>
+        </ion-item>
+      </ion-col>
+      <ion-col col-md-4>
+        <ion-item>
+          <ion-label>مشترکین اینترنت ثابت TDLTE</ion-label>
+          <ion-radio value="TDLTE"></ion-radio>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ng-container>
+  <ion-row *ngIf="dataReady == 'ready' && !showForm">
     <ng-container *ngIf="packageType == 'awesome'">
       <ion-col *ngFor="let item of awesomePackages">
-        <ion-card>
+        <ion-card (click)="selectedPackage = item; showForm = true;">
           <ion-card-title>
             <ion-row>
               <ion-col ion-col col-4>
@@ -106,7 +108,7 @@
     </ng-container>
     <ng-container *ngIf="packageType == 'regular'">
       <ion-col *ngFor="let item of packageList | filterPackages:customerType:hourlyCheckbox:dailyCheckbox:weeklyCheckbox:monthlyCheckbox">
-        <ion-card>
+        <ion-card (click)="selectedPackage = item; showForm = true;">
           <ion-card-title>
             <ion-row>
               <ion-col ion-col col-4>
@@ -132,4 +134,85 @@
       </ion-col>
     </ng-container>
   </ion-row>
+  <ng-container *ngIf="showForm">
+    <ion-card>
+      <ion-card-title>
+        <ion-row>
+          <ion-col ion-col col-4>
+            <h1>{{ selectedPackage.name | trafficPipe }}</h1>
+            <h2>{{ selectedPackage.name | timePipe }}</h2>
+          </ion-col>
+          <ion-col ion-col col-8 class='right-border'>
+            <p>
+              بسته شگفت انگیز
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-card-title>
+      <ion-item>
+        <span class="price">{{ selectedPackage.price }} تومان</span>
+        <div item-right>
+          <p ion-text color='danger'>
+            {{ selectedPackage.name | customerPipe }}
+          </p>
+        </div>
+      </ion-item>
+    </ion-card>
+    <form [formGroup]="packageForm" class="form" (ngSubmit)="onSubmit(packageForm.value)">
+      <ion-list radio-group formControlName="payment_gateway">
+        <ion-item>
+          <ion-icon name='phone-portrait' color='bluegrey' item-left></ion-icon>
+          <ion-label>شماره موبایل</ion-label>
+          <ion-input type="text" maxlength="11" placeholder="09123456789" formControlName="phone_number" class="form-controll" (focus)="showSearchIcon = false" (focusout)="onPhoneInputFocusout($event)" #phone_input></ion-input>
+          <button ion-button icon-only item-right clear id="search-btn" *ngIf="showSearchIcon" (click)="onSearchContactClick(phone_input)">
+            <ion-icon name='search' class='btn-icon'></ion-icon>
+          </button>
+        </ion-item>
+        <ion-list-header>درگاه پرداخت</ion-list-header>
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="assets/images/saman.png">
+          </ion-avatar>
+          <ion-label>درگاه بانک سامان</ion-label>
+          <ion-radio value="Saman"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="assets/images/mellat.png">
+          </ion-avatar>
+          <ion-label>درگاه بانک ملت</ion-label>
+          <ion-radio checked="true" value="Mellat"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="assets/images/zarinpal.png">
+          </ion-avatar>
+          <ion-label>درگاه زرین پال</ion-label>
+          <ion-radio value="Zarinpal"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <div class="row">
+        <div class="col text-center">
+          <button ion-button round icon-right large type="submit" color="accent" [disabled]="!packageForm.valid">
+            <ion-icon name="cart"></ion-icon>
+            خرید
+          </button>
+          <button ion-button round icon-right large type="button" color="danger" (click)="showForm = false;">
+            <ion-icon name="close"></ion-icon>
+            انصراف
+          </button>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+  <div class="gears-div" *ngIf="dataReady == 'loading'">
+    <img src="assets/images/gears.svg">
+  </div>
+  <div class="gears-div" *ngIf="dataReady == 'error'">
+    <ion-icon name='alert' color='danger' class='error-msg'>خطا در دریافت اطلاعات</ion-icon>
+    <button ion-button color='secondary' block icon-right style="font-size: 2rem;" (click)="dataReady = 'loading'; getPackagesList()">
+      <ion-icon name='refresh'></ion-icon>
+      تلاش مجدد
+    </button>
+  </div>
 </ion-content>

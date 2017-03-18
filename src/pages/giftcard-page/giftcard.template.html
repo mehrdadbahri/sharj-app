@@ -7,9 +7,9 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="container" padding overflow-scroll="true">
-  <ion-row>
+  <ion-row *ngIf="dataStatus == 'ready' && !showForm">
     <ion-col *ngFor="let item of giftcards">
-      <ion-card>
+      <ion-card (click)="selectedGiftcard = item; showForm = true;">
         <ion-card-title>
           <ion-row>
             <ion-col ion-col col-4>
@@ -30,4 +30,81 @@
       </ion-card>
     </ion-col>
   </ion-row>
+  <ng-container *ngIf="showForm">
+    <ion-card>
+      <ion-card-title>
+          <ion-row>
+            <ion-col ion-col col-4>
+              <ion-avatar item-right>
+                <img [src]="selectedGiftcard.imgSrc" style="margin-right: -10px;">
+              </ion-avatar>
+            </ion-col>
+            <ion-col ion-col col-8 class='right-border'>
+              <p style="font-size: 2.6rem;">
+                {{ selectedGiftcard.name }}
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-card-title>
+        <ion-item>
+          <span class="price">{{ selectedGiftcard.price }} تومان</span>
+        </ion-item>
+    </ion-card>
+    <form [formGroup]="giftcardForm" class="form" (ngSubmit)="onSubmit(giftcardForm.value)">
+      <ion-list radio-group formControlName="payment_gateway">
+        <ion-item>
+          <ion-icon name='phone-portrait' color='bluegrey' item-left></ion-icon>
+          <ion-label>شماره موبایل</ion-label>
+          <ion-input type="text" maxlength="11" placeholder="09123456789" formControlName="phone_number" class="form-controll" (focus)="showSearchIcon = false" (focusout)="onPhoneInputFocusout($event)" #phone_input></ion-input>
+          <button ion-button icon-only item-right clear id="search-btn" *ngIf="showSearchIcon" (click)="onSearchContactClick(phone_input)">
+            <ion-icon name='search' class='btn-icon'></ion-icon>
+          </button>
+        </ion-item>
+        <ion-list-header>درگاه پرداخت</ion-list-header>
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="assets/images/saman.png">
+          </ion-avatar>
+          <ion-label>درگاه بانک سامان</ion-label>
+          <ion-radio value="Saman"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="assets/images/mellat.png">
+          </ion-avatar>
+          <ion-label>درگاه بانک ملت</ion-label>
+          <ion-radio checked="true" value="Mellat"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-avatar item-left>
+            <img src="assets/images/zarinpal.png">
+          </ion-avatar>
+          <ion-label>درگاه زرین پال</ion-label>
+          <ion-radio value="Zarinpal"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <div class="row">
+        <div class="col text-center">
+          <button ion-button round icon-right large type="submit" color="accent" [disabled]="!giftcardForm.valid">
+            <ion-icon name="cart"></ion-icon>
+            خرید
+          </button>
+          <button ion-button round icon-right large type="button" color="danger" (click)="showForm = false;">
+            <ion-icon name="close"></ion-icon>
+            انصراف
+          </button>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+  <div class="gears-div" *ngIf="dataStatus == 'loading'">
+    <img src="assets/images/gears.svg">
+  </div>
+  <div class="gears-div" *ngIf="dataStatus == 'error'">
+      <ion-icon name='alert' color='danger' class='error-msg'>خطا در دریافت اطلاعات</ion-icon>
+      <button ion-button color='secondary' block icon-right style="font-size: 2rem;" (click)="dataStatus = 'loading'; getGiftcardsList()">
+        <ion-icon name='refresh'></ion-icon>
+        تلاش مجدد
+      </button>
+  </div>
 </ion-content>
