@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
+import { IonicPage } from 'ionic-angular';
 import { Platform, LoadingController, AlertController } from 'ionic-angular';
 import { Validators, FormControl, FormGroup} from '@angular/forms';
 import { DataProvider } from '../../providers/data.provider'
 import { Storage } from '@ionic/storage';
-import { Contacts, Contact, InAppBrowser } from 'ionic-native';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Contacts, Contact } from '@ionic-native/contacts';
 import { PaymentLinkProvider } from '../../providers/payment-link.provider';
 import { Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+@IonicPage()
 @Component({
 	selector: 'buy-giftcard',
 	templateUrl: 'giftcard.template.html'
@@ -19,7 +22,6 @@ export class giftcardPage {
 	private showForm : boolean = false;
 	private selectedGiftcard : Object;
 	private saveContact : Boolean = true;
-	private browser: InAppBrowser;
 
 	constructor(
 		private dataService: DataProvider,
@@ -27,7 +29,9 @@ export class giftcardPage {
 		private paymentService : PaymentLinkProvider,
 		private loadingCtrl : LoadingController,
 		private alertCtrl : AlertController,
-		private storage : Storage
+		private storage : Storage,
+		private contacts : Contacts,
+		private iab: InAppBrowser
 		) {
 	}
 
@@ -102,7 +106,7 @@ export class giftcardPage {
 	}
 
 	onSearchContactClick(input : any){
-		Contacts.pickContact().then(
+		this.contacts.pickContact().then(
 			(contact: Contact) => {
 				if (contact.phoneNumbers){
 					input.value = contact.phoneNumbers[0];
@@ -136,8 +140,8 @@ export class giftcardPage {
 			loader.dismiss();
 			if(result.status == 'Success') {
 				console.log(result.paymentInfo.url);
-				this.browser = new InAppBrowser(result.paymentInfo.url, '_blank', 'location=true');
-				this.browser.show();
+				const browser = this.iab.create(result.paymentInfo.url, '_blank', 'location=true');
+				browser.show();
 			}
 			else if(result.status == 'Error') {
 				let alert = this.alertCtrl.create({

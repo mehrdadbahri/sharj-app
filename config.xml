@@ -36,12 +36,12 @@
     <plugin name="cordova-plugin-statusbar" spec="2.2.1" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
+    <plugin name="cordova-sqlite-storage" spec="~2.0.2" />
+    <plugin name="cordova-plugin-inappbrowser" spec="~1.7.0" />
     <plugin name="cordova-plugin-contacts" spec="~2.3.0">
         <variable name="CONTACTS_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="phonegap-plugin-barcodescanner" spec="~6.0.6">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="cordova-plugin-inappbrowser" spec="~1.7.0" />
-    <plugin name="cordova-sqlite-storage" spec="~2.0.2" />
 </widget>

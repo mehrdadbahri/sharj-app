@@ -1,45 +1,36 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { BrowserModule } from '@angular/platform-browser';
 import { IonicStorageModule } from '@ionic/storage';
+import { HttpModule } from '@angular/http';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Contacts, Contact } from '@ionic-native/contacts';
 import { DataProvider } from '../providers/data.provider';
 import { PaymentLinkProvider } from '../providers/payment-link.provider';
-import { TrafficPipe } from '../pipes/traffic.pipe';
-import { CustomerPipe } from '../pipes/customer.pipe';
-import { TimePipe } from '../pipes/time.pipe';
-import { TrafficDetailPipe } from '../pipes/traffic-detail.pipe';
-import { FilterPackages } from '../pipes/filter-packages.pipe';
 import { MyApp } from './app.component';
-import { chargePage } from '../pages/charge-page/charge-page.component';
-import { packagePage } from '../pages/packages-page/packages.component';
-import { billPage } from '../pages/bill-page/bill.component';
-import { giftcardPage } from '../pages/giftcard-page/giftcard.component';
 
 @NgModule({
   declarations: [
-    TrafficPipe,
-    CustomerPipe,
-    TimePipe,
-    TrafficDetailPipe,
-    FilterPackages,
     MyApp,
-    chargePage,
-    packagePage,
-    billPage,
-    giftcardPage,
   ],
   imports: [
+    BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    chargePage,
-    packagePage,
-    billPage,
-    giftcardPage,
   ],
   providers: [
+    InAppBrowser,
+    Contacts,
+    Contact,
+    StatusBar,
+    SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DataProvider,
     PaymentLinkProvider

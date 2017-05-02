@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { IonicPage } from 'ionic-angular';
 import { FocusEvent } from '@angular/event';
-import { Contacts, Contact, InAppBrowser } from 'ionic-native';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Contacts, Contact } from '@ionic-native/contacts';
 import { Platform, LoadingController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Validators, FormControl, FormGroup} from '@angular/forms';
@@ -8,6 +10,7 @@ import { PaymentLinkProvider } from '../../providers/payment-link.provider';
 import { Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+@IonicPage()
 @Component({
 	selector: 'buy-charge',
 	templateUrl: 'charge-page.template.html'
@@ -29,7 +32,6 @@ export class chargePage {
 	{'name': 'رایتل', 'value': 'RTL'}
 	]
 	private selectedOperator : Object = this.operators[0];
-	private browser: InAppBrowser;
 	private saveContact : Boolean = true;
 
 	constructor(
@@ -37,7 +39,9 @@ export class chargePage {
 		private paymentService : PaymentLinkProvider,
 		private loadingCtrl : LoadingController,
 		private alertCtrl : AlertController,
-		private storage : Storage
+		private storage : Storage,
+		private contacts : Contacts,
+		private iab: InAppBrowser
 		){
 
 	}
@@ -68,7 +72,7 @@ export class chargePage {
 	}
 
 	onSearchContactClick(input : any){
-		Contacts.pickContact().then(
+		this.contacts.pickContact().then(
 			(contact: Contact) => {
 				if (contact.phoneNumbers){
 					input.value = contact.phoneNumbers[0];
@@ -108,8 +112,8 @@ export class chargePage {
 				loader.dismiss();
 				if(result.status == 'Success') {
 					console.log(result.paymentInfo.url);
-					this.browser = new InAppBrowser(result.paymentInfo.url, '_blank', 'location=true');
-					this.browser.show();
+					const browser = this.iab.create(result.paymentInfo.url, '_blank', 'location=true');
+					browser.show();
 				}
 				else if(result.status == 'Error') {
 					let alert = this.alertCtrl.create({

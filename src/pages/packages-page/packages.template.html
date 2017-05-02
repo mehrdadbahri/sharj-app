@@ -95,14 +95,10 @@
               </ion-col>
             </ion-row>
           </ion-card-title>
-          <ion-item>
-            <span class="price">{{ item.price }} تومان</span>
-            <div item-right>
-              <p ion-text color='danger'>
-                {{ item.name | customerPipe }}
-              </p>
-            </div>
-          </ion-item>
+          <span class="price">{{ item.price }} تومان</span>
+          <p ion-text color='danger'>
+            {{ item.name | customerPipe }}
+          </p>
         </ion-card>
       </ion-col>
     </ng-container>
@@ -122,14 +118,10 @@
               </ion-col>
             </ion-row>
           </ion-card-title>
-          <ion-item>
-            <span class="price">{{ item.price }} تومان</span>
-            <div item-right>
-              <p ion-text color='danger'>
-                {{ item.name | customerPipe }}
-              </p>
-            </div>
-          </ion-item>
+          <span class="price">{{ item.price }} تومان</span>
+          <p ion-text color='danger'>
+            {{ item.name | customerPipe }}
+          </p>
         </ion-card>
       </ion-col>
     </ng-container>
@@ -149,14 +141,10 @@
           </ion-col>
         </ion-row>
       </ion-card-title>
-      <ion-item>
-        <span class="price">{{ selectedPackage.price }} تومان</span>
-        <div item-right>
-          <p ion-text color='danger'>
-            {{ selectedPackage.name | customerPipe }}
-          </p>
-        </div>
-      </ion-item>
+      <span class="price">{{ selectedPackage.price }} تومان</span>
+      <p ion-text color='danger'>
+        {{ selectedPackage.name | customerPipe }}
+      </p>
     </ion-card>
     <form [formGroup]="packageForm" class="form" (ngSubmit)="onSubmit(packageForm.value)">
       <ion-list radio-group formControlName="payment_gateway">
