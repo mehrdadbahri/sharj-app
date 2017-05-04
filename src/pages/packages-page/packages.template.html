@@ -82,69 +82,73 @@
     <ng-container *ngIf="packageType == 'awesome'">
       <ion-col *ngFor="let item of awesomePackages">
         <ion-card (click)="selectedPackage = item; showForm = true;">
+          <p ion-text color='danger' class="text-center" style="font-size: 1.8rem;">
+            {{ item.name | customerPipe }}
+          </p>
           <ion-card-title>
             <ion-row>
-              <ion-col ion-col col-4>
-                <h1>{{ item.name | trafficPipe }}</h1>
-                <h2>{{ item.name | timePipe }}</h2>
+              <ion-col ion-col col-5>
+                <h1 class="text-center">{{ item.name | trafficPipe }}</h1>
               </ion-col>
-              <ion-col ion-col col-8 class='right-border'>
-                <p>
-                  بسته شگفت انگیز
-                </p>
+              <ion-col ion-col col-7 class='right-border'>
+                <h2 class="text-center">{{ item.name | timePipe }}</h2>
               </ion-col>
             </ion-row>
           </ion-card-title>
-          <span class="price">{{ item.price }} تومان</span>
-          <p ion-text color='danger'>
-            {{ item.name | customerPipe }}
-          </p>
+          <p class="price text-center">{{ item.price | number }} تومان</p>
         </ion-card>
       </ion-col>
     </ng-container>
     <ng-container *ngIf="packageType == 'regular'">
       <ion-col *ngFor="let item of packageList | filterPackages:customerType:hourlyCheckbox:dailyCheckbox:weeklyCheckbox:monthlyCheckbox">
         <ion-card (click)="selectedPackage = item; showForm = true;">
+          <p ion-text color='danger' class="text-center" style="font-size: 1.8rem;">
+            {{ item.name | customerPipe }}
+          </p>
           <ion-card-title>
             <ion-row>
-              <ion-col ion-col col-4>
-                <h1>{{ item.name | trafficPipe }}</h1>
-                <h2>{{ item.name | timePipe }}</h2>
+              <ion-col ion-col col-5>
+                <h1 class="text-center">{{ item.name | trafficPipe }}</h1>
+                <h2 class="text-center">{{ item.name | timePipe }}</h2>
               </ion-col>
-              <ion-col ion-col col-8 class='right-border'>
-                <p>
+              <ion-col ion-col col-7 class='right-border'>
+                <p class="text-center">
                   {{ item.name | trafficDetailPipe }}
                 </p>
               </ion-col>
             </ion-row>
           </ion-card-title>
-          <span class="price">{{ item.price }} تومان</span>
-          <p ion-text color='danger'>
-            {{ item.name | customerPipe }}
-          </p>
+          <p class="price text-center">{{ item.price | number }} تومان</p>
         </ion-card>
       </ion-col>
     </ng-container>
   </ion-row>
   <ng-container *ngIf="showForm">
     <ion-card>
+      <p ion-text color='danger' class="text-center" style="font-size: 1.8rem;">
+        {{ selectedPackage.name | customerPipe }}
+      </p>
       <ion-card-title>
         <ion-row>
-          <ion-col ion-col col-4>
-            <h1>{{ selectedPackage.name | trafficPipe }}</h1>
-            <h2>{{ selectedPackage.name | timePipe }}</h2>
+          <ion-col ion-col col-5>
+            <h1 class="text-center">{{ selectedPackage.name | trafficPipe }}</h1>
+            <ng-container *ngIf="packageType == 'regular'">
+              <h2 class="text-center">{{ selectedPackage.name | timePipe }}</h2>
+            </ng-container>
           </ion-col>
-          <ion-col ion-col col-8 class='right-border'>
-            <p>
-              بسته شگفت انگیز
+          <ion-col ion-col col-7 class='right-border'>
+            <p class="text-center">
+              <ng-container *ngIf="packageType == 'regular'">
+                {{ selectedPackage.name | trafficDetailPipe }}
+              </ng-container>
+              <ng-container *ngIf="packageType == 'awesome'">
+                <h2 class="text-center">{{ selectedPackage.name | timePipe }}</h2>
+              </ng-container>
             </p>
           </ion-col>
         </ion-row>
       </ion-card-title>
-      <span class="price">{{ selectedPackage.price }} تومان</span>
-      <p ion-text color='danger'>
-        {{ selectedPackage.name | customerPipe }}
-      </p>
+      <p class="price text-center">{{ selectedPackage.price | number }} تومان</p>
     </ion-card>
     <form [formGroup]="packageForm" class="form" (ngSubmit)="onSubmit(packageForm.value)">
       <ion-list radio-group formControlName="payment_gateway">

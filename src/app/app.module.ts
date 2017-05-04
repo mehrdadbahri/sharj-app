@@ -7,23 +7,24 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Contacts, Contact } from '@ionic-native/contacts';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner'
 import { DataProvider } from '../providers/data.provider';
 import { PaymentLinkProvider } from '../providers/payment-link.provider';
-import { MyApp } from './app.component';
+import { ChargeKioosk } from './app.component';
 
 @NgModule({
   declarations: [
-    MyApp,
+    ChargeKioosk,
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(ChargeKioosk),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    ChargeKioosk,
   ],
   providers: [
     InAppBrowser,
@@ -31,6 +32,7 @@ import { MyApp } from './app.component';
     Contact,
     StatusBar,
     SplashScreen,
+    BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DataProvider,
     PaymentLinkProvider

@@ -25,8 +25,8 @@ export class packagePage {
 	private packageList : Object[] = [];
 	private hourlyCheckbox : Boolean = false;
 	private dailyCheckbox : Boolean = false;
-	private weeklyCheckbox : Boolean = true;
-	private monthlyCheckbox : Boolean = false;
+	private weeklyCheckbox : Boolean = false;
+	private monthlyCheckbox : Boolean = true;
 	private dataReady : string = 'loading';
 	private showForm : boolean = false;
 	private selectedPackage : Object;

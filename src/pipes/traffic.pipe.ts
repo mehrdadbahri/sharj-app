@@ -7,7 +7,7 @@ import { Injectable, Pipe, PipeTransform } from '@angular/core';
 export class TrafficPipe implements PipeTransform {
   transform(value: any, args) {
     value = value + ''; // make sure it's a string
-    const regex = /(\d+)\s*((مگابایت)|(گیگابایت)|(گیگ))/g;
+    const regex = /(\d+\.*\d*)\s*((مگابایت)|(گیگابایت)|(گیگ))/g;
     var traffic : number = 0;
     var unit : string;
     let m: any;
@@ -17,7 +17,7 @@ export class TrafficPipe implements PipeTransform {
         regex.lastIndex++;
       }
 
-      traffic += parseInt(m[1]);
+      traffic += parseFloat(m[1]);
       unit = m[2];
       
     }

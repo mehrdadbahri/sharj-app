@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class ChargeKioosk {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = 'chargePage';
@@ -14,17 +14,17 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
   constructor(private platform: Platform,
-              private splashScreen: SplashScreen,
-              private statusBar: StatusBar
-              ) {
-    // this.initializeApp();
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar
+    ) {
+    this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'خرید شارژ', component: 'chargePage' },
-      { title: 'بسته‌های اینترنتی ایرانسل', component: 'packagePage' },
-      { title: 'پرداخت قبض و جرایم رانندگی', component: 'billPage' },
-      { title: 'خرید گیفت کارت', component: 'giftcardPage' },
+    { title: 'خرید شارژ', component: 'chargePage' },
+    { title: 'بسته‌های اینترنتی ایرانسل', component: 'packagePage' },
+    { title: 'پرداخت قبض و جرایم رانندگی', component: 'billPage' },
+    { title: 'خرید گیفت کارت', component: 'giftcardPage' },
     ];
 
   }
@@ -35,6 +35,9 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.platform.registerBackButtonAction(function () {
+        
+      }, 100);
     });
   }
 

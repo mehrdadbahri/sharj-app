@@ -31,15 +31,21 @@ export class billPage {
 			payment_gateway: new FormControl('Saman', Validators.required)
 		});
 		this.storage.get('phone').then((val) => {
-			(<FormControl>this.billForm.controls['phone_number']).setValue(val);
+			this.billForm.controls['phone_number'].setValue(val);
 		})
 	}
 
 	scan() {
         this.platform.ready().then(() => {
-            this.barcodeScanner.scan().then((result) => {
+            this.barcodeScanner.scan(
+	            	{
+	            		formats : "CODE_128",
+	            		prompt : "لطفا بارکد قبض را مقابل دوربین قرار دهید."
+	            	}
+            	).then((result) => {
             	console.log(result.text);
-                (<FormControl>this.billForm.controls['payment_id']).setValue(result.text);
+                this.billForm.controls['bill_id'].setValue(result.text.slice(0,13));
+            	this.billForm.controls['payment_id'].setValue(result.text.slice(13,-1));
             }, (error) => {
                 console.log(error);
             });
