@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="container" padding overflow-scroll="true">
-  <ng-container *ngIf="packageType == 'regular'  && !showForm">
+  <ng-container *ngIf="packageType == 'regular'">
     <ion-item>
       <ion-icon name='funnel'></ion-icon>
       <strong>تنظیمات نمایش بسته‌ها</strong>
@@ -78,10 +78,10 @@
       </ion-col>
     </ion-row>
   </ng-container>
-  <ion-row *ngIf="dataReady == 'ready' && !showForm">
+  <ion-row *ngIf="dataReady == 'ready'">
     <ng-container *ngIf="packageType == 'awesome'">
       <ion-col *ngFor="let item of awesomePackages">
-        <ion-card (click)="selectedPackage = item; showForm = true;">
+        <ion-card (click)="onPackageSelected(item)">
           <p ion-text color='danger' class="text-center" style="font-size: 1.8rem;">
             {{ item.name | customerPipe }}
           </p>
@@ -101,7 +101,7 @@
     </ng-container>
     <ng-container *ngIf="packageType == 'regular'">
       <ion-col *ngFor="let item of packageList | filterPackages:customerType:hourlyCheckbox:dailyCheckbox:weeklyCheckbox:monthlyCheckbox">
-        <ion-card (click)="selectedPackage = item; showForm = true;">
+        <ion-card (click)="onPackageSelected(item)">
           <p ion-text color='danger' class="text-center" style="font-size: 1.8rem;">
             {{ item.name | customerPipe }}
           </p>
@@ -123,80 +123,6 @@
       </ion-col>
     </ng-container>
   </ion-row>
-  <ng-container *ngIf="showForm">
-    <ion-card>
-      <p ion-text color='danger' class="text-center" style="font-size: 1.8rem;">
-        {{ selectedPackage.name | customerPipe }}
-      </p>
-      <ion-card-title>
-        <ion-row>
-          <ion-col ion-col col-5>
-            <h1 class="text-center">{{ selectedPackage.name | trafficPipe }}</h1>
-            <ng-container *ngIf="packageType == 'regular'">
-              <h2 class="text-center">{{ selectedPackage.name | timePipe }}</h2>
-            </ng-container>
-          </ion-col>
-          <ion-col ion-col col-7 class='right-border'>
-            <p class="text-center">
-              <ng-container *ngIf="packageType == 'regular'">
-                {{ selectedPackage.name | trafficDetailPipe }}
-              </ng-container>
-              <ng-container *ngIf="packageType == 'awesome'">
-                <h2 class="text-center">{{ selectedPackage.name | timePipe }}</h2>
-              </ng-container>
-            </p>
-          </ion-col>
-        </ion-row>
-      </ion-card-title>
-      <p class="price text-center">{{ selectedPackage.price | number }} تومان</p>
-    </ion-card>
-    <form [formGroup]="packageForm" class="form" (ngSubmit)="onSubmit(packageForm.value)">
-      <ion-list radio-group formControlName="payment_gateway">
-        <ion-item>
-          <ion-icon name='phone-portrait' color='bluegrey' item-left></ion-icon>
-          <ion-label>شماره موبایل</ion-label>
-          <ion-input type="text" maxlength="11" placeholder="09123456789" formControlName="phone_number" class="form-controll" (focus)="showSearchIcon = false" (focusout)="onPhoneInputFocusout($event)" #phone_input></ion-input>
-          <button ion-button icon-only item-right clear id="search-btn" *ngIf="showSearchIcon" (click)="onSearchContactClick(phone_input)">
-            <ion-icon name='search' class='btn-icon'></ion-icon>
-          </button>
-        </ion-item>
-        <ion-list-header>درگاه پرداخت</ion-list-header>
-        <ion-item>
-          <ion-avatar item-left>
-            <img src="assets/images/saman.png">
-          </ion-avatar>
-          <ion-label>درگاه بانک سامان</ion-label>
-          <ion-radio value="Saman"></ion-radio>
-        </ion-item>
-        <ion-item>
-          <ion-avatar item-left>
-            <img src="assets/images/mellat.png">
-          </ion-avatar>
-          <ion-label>درگاه بانک ملت</ion-label>
-          <ion-radio checked="true" value="Mellat"></ion-radio>
-        </ion-item>
-        <ion-item>
-          <ion-avatar item-left>
-            <img src="assets/images/zarinpal.png">
-          </ion-avatar>
-          <ion-label>درگاه زرین پال</ion-label>
-          <ion-radio value="Zarinpal"></ion-radio>
-        </ion-item>
-      </ion-list>
-      <div class="row">
-        <div class="col text-center">
-          <button ion-button round icon-right large type="submit" color="accent" [disabled]="!packageForm.valid">
-            <ion-icon name="cart"></ion-icon>
-            خرید
-          </button>
-          <button ion-button round icon-right large type="button" color="danger" (click)="showForm = false;">
-            <ion-icon name="close"></ion-icon>
-            انصراف
-          </button>
-        </div>
-      </div>
-    </form>
-  </ng-container>
   <div class="gears-div" *ngIf="dataReady == 'loading'">
     <img src="assets/images/gears.svg">
   </div>

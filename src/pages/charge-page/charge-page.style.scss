@@ -1,7 +1,5 @@
 buy-charge {
-	p {
-		font-size: 2rem !important;
-	}
+
     input,
     ion-input {
         text-align: left;
@@ -21,6 +19,15 @@ buy-charge {
     .item-ios [item-right] {
         margin: 0px !important;
         padding-left: 0px;
+    }
+    button {
+        margin-right: 0px !important;
+    }
+    .select {
+        padding: 0px !important;
+    }
+    ion-avatar {
+        margin-right: 0px !important;
     }
     .btn-icon::before {
         width: 40px;
@@ -91,7 +98,7 @@ buy-charge {
         left: -8px;
     }
 	.highlight {
-		font-size: 2.6rem;
+		font-size: 24px;
 		color: color($colors, danger);
 		font-weight: bold;
 	}

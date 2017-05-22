@@ -5,6 +5,6 @@
     "typescript": true,
     "proxies": [{
         "path": "/api",
-        "proxyUrl": "http://chr724.ir"
+        "proxyUrl": "https://chr724.ir"
     }]
 }

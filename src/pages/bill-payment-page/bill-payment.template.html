@@ -1,28 +1,29 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-segment color="white" [(ngModel)]="chargeType">
-      <ion-segment-button value="direct">
-        شارژ مستقیم
-      </ion-segment-button>
-      <ion-segment-button value="card">
-        کارت شارژ
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+    <ion-title>مشخصات قبض</ion-title>
+  </ion-navbar>
 </ion-header>
 <ion-content class="container" padding overflow-scroll="true">
-  <form [formGroup]="chargeForm" class="form" (ngSubmit)="onSubmit(chargeForm.value)">
-    <ion-list radio-group formControlName="payment_gateway">
-      <ion-item *ngIf="chargeType == 'card'">
-        <h2>اپراتور <span class="highlight">{{ selectedOperator.name }}</span></h2>
-        <div style="width: 222px; margin: 0px auto; padding: 5px;">
-          <div class="outline-out" *ngFor="let item of operators" [attr.id]="item.value" [ngClass]="{  'selected-div': selectedOperator.value == item.value }" (click)="selectedOperator=item">
-          </div>
-        </div>
+  <ion-card>
+  <div style="width: 50%; margin: 0 auto;">
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="assets/images/water.jpg">
+        </ion-avatar>
+        <p ion-text color='primary' style="font-size: 1.8rem;">
+          قبض آب
+        </p>
       </ion-item>
+      <ion-item>
+        <p class="price">مبلغ: {{ 16200 | number }}</p>
+      </ion-item>
+    </div>
+  </ion-card>
+  <form [formGroup]="billForm" class="form" (ngSubmit)="onSubmit(billForm.value)">
+    <ion-list radio-group formControlName="payment_gateway">
       <ion-item>
         <ion-icon name='phone-portrait' color='bluegrey' item-left></ion-icon>
         <ion-label>شماره موبایل</ion-label>
@@ -31,19 +32,7 @@
           <ion-icon name='search' class='btn-icon'></ion-icon>
         </button>
       </ion-item>
-      <ion-item>
-        <ion-icon name='cash' color='bluegrey' item-left></ion-icon>
-        <ion-label>مبلغ شارژ</ion-label>
-        <ion-select formControlName="amount">
-          <ion-option *ngFor="let item of chargeAmounts" [value]="item.value" [disabled]="chargeType=='card' && item.value==1000 && selectedOperator.value=='RTL'"> {{ item.name }} </ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="chargeType == 'direct'">
-        <ion-icon name='color-wand' color='bluegrey' item-left></ion-icon>
-        <ion-label>شارژ شگفت انگیز </ion-label>
-        <ion-toggle formControlName="awesome"></ion-toggle>
-      </ion-item>
-      <h5 class="text-center">درگاه پرداخت</h5>
+      <ion-list-header>درگاه پرداخت</ion-list-header>
       <ion-item>
         <ion-avatar item-left>
           <img src="assets/images/saman.png">
@@ -68,11 +57,18 @@
     </ion-list>
     <div class="row">
       <div class="col text-center">
-        <button ion-button round icon-right large type="submit" color="accent" [disabled]="!chargeForm.valid">
+        <button ion-button round icon-right large type="submit" color="accent" [disabled]="!billForm.valid">
           <ion-icon name="cart"></ion-icon>
           خرید
+        </button>
+        <button ion-button round icon-right large type="button" color="danger" (click)="onCancelClicked()">
+          <ion-icon name="close"></ion-icon>
+          انصراف
         </button>
       </div>
     </div>
   </form>
+  <div class="gears-div" *ngIf="dataReady == 'loading'">
+    <img src="assets/images/gears.svg">
+  </div>
 </ion-content>

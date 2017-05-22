@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
-import { packagePage } from './packages.component'
+import { packagePaymentPage } from './package-payment'
 import { PipesModule } from '../../pipes/pipes.module';
 import { IonicPageModule } from 'ionic-angular';
 
 @NgModule({
-	declarations: [packagePage],
+	declarations: [packagePaymentPage],
 	imports: [
-		IonicPageModule.forChild(packagePage),
+		IonicPageModule.forChild(packagePaymentPage),
 		PipesModule
+	],
+	exports: [
+		packagePaymentPage
 	],
 })
 export class PackagePageModule { }

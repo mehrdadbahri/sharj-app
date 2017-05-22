@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 import { Platform } from 'ionic-angular'
+import { NavController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner'
-import { Storage } from '@ionic/storage';
 import { Validators, FormControl, FormGroup} from '@angular/forms'
 
 @IonicPage()
@@ -14,25 +14,19 @@ import { Validators, FormControl, FormGroup} from '@angular/forms'
 export class billPage {
 	private billForm : FormGroup;
 
-	constructor(private platform: Platform, private storage : Storage, private barcodeScanner: BarcodeScanner){
+	constructor(
+			private platform: Platform,
+			private barcodeScanner: BarcodeScanner,
+			private navCtrl: NavController,
+		){
 		this.platform = platform;
 	}
 
 	ionViewWillLoad() {
 		this.billForm = new FormGroup({
-			phone_number: new FormControl('', 
-				Validators.compose([
-				Validators.minLength(11),
-				Validators.pattern('^[09]{2}[0-9]{9}$'),
-				Validators.required
-				])),
 			bill_id: new FormControl('', Validators.required),
 			payment_id: new FormControl('', Validators.required),
-			payment_gateway: new FormControl('Saman', Validators.required)
 		});
-		this.storage.get('phone').then((val) => {
-			this.billForm.controls['phone_number'].setValue(val);
-		})
 	}
 
 	scan() {
@@ -53,6 +47,9 @@ export class billPage {
     }
 
 	onSubmit(values){
-		console.log(values)
+		console.log(values);
+		this.navCtrl.push('billPaymentPage', {
+	      values: values,
+	    });
 	}
 }

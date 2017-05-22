@@ -1,28 +1,40 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-segment color="white" [(ngModel)]="chargeType">
-      <ion-segment-button value="direct">
-        شارژ مستقیم
-      </ion-segment-button>
-      <ion-segment-button value="card">
-        کارت شارژ
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+    <ion-title>خرید بسته اینترنتی</ion-title>
+  </ion-navbar>
 </ion-header>
 <ion-content class="container" padding overflow-scroll="true">
-  <form [formGroup]="chargeForm" class="form" (ngSubmit)="onSubmit(chargeForm.value)">
+  <ion-card>
+    <p ion-text color='danger' class="text-center" style="font-size: 1.8rem;">
+      {{ selectedPackage.name | customerPipe }}
+    </p>
+    <ion-card-title>
+      <ion-row>
+        <ion-col ion-col col-5>
+          <h1 class="text-center">{{ selectedPackage.name | trafficPipe }}</h1>
+          <ng-container *ngIf="packageType == 'regular'">
+            <h2 class="text-center">{{ selectedPackage.name | timePipe }}</h2>
+          </ng-container>
+        </ion-col>
+        <ion-col ion-col col-7 class='right-border'>
+          <p class="text-center">
+            <ng-container *ngIf="packageType == 'regular'">
+              {{ selectedPackage.name | trafficDetailPipe }}
+            </ng-container>
+            <ng-container *ngIf="packageType == 'awesome'">
+              <h2 class="text-center">{{ selectedPackage.name | timePipe }}</h2>
+            </ng-container>
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-card-title>
+    <p class="price text-center">{{ selectedPackage.price | number }} تومان</p>
+  </ion-card>
+  <form [formGroup]="packageForm" class="form" (ngSubmit)="onSubmit(packageForm.value)">
     <ion-list radio-group formControlName="payment_gateway">
-      <ion-item *ngIf="chargeType == 'card'">
-        <h2>اپراتور <span class="highlight">{{ selectedOperator.name }}</span></h2>
-        <div style="width: 222px; margin: 0px auto; padding: 5px;">
-          <div class="outline-out" *ngFor="let item of operators" [attr.id]="item.value" [ngClass]="{  'selected-div': selectedOperator.value == item.value }" (click)="selectedOperator=item">
-          </div>
-        </div>
-      </ion-item>
       <ion-item>
         <ion-icon name='phone-portrait' color='bluegrey' item-left></ion-icon>
         <ion-label>شماره موبایل</ion-label>
@@ -31,19 +43,7 @@
           <ion-icon name='search' class='btn-icon'></ion-icon>
         </button>
       </ion-item>
-      <ion-item>
-        <ion-icon name='cash' color='bluegrey' item-left></ion-icon>
-        <ion-label>مبلغ شارژ</ion-label>
-        <ion-select formControlName="amount">
-          <ion-option *ngFor="let item of chargeAmounts" [value]="item.value" [disabled]="chargeType=='card' && item.value==1000 && selectedOperator.value=='RTL'"> {{ item.name }} </ion-option>
-        </ion-select>
-      </ion-item>
-      <ion-item *ngIf="chargeType == 'direct'">
-        <ion-icon name='color-wand' color='bluegrey' item-left></ion-icon>
-        <ion-label>شارژ شگفت انگیز </ion-label>
-        <ion-toggle formControlName="awesome"></ion-toggle>
-      </ion-item>
-      <h5 class="text-center">درگاه پرداخت</h5>
+      <ion-list-header>درگاه پرداخت</ion-list-header>
       <ion-item>
         <ion-avatar item-left>
           <img src="assets/images/saman.png">
@@ -68,9 +68,13 @@
     </ion-list>
     <div class="row">
       <div class="col text-center">
-        <button ion-button round icon-right large type="submit" color="accent" [disabled]="!chargeForm.valid">
+        <button ion-button round icon-right large type="submit" color="accent" [disabled]="!packageForm.valid">
           <ion-icon name="cart"></ion-icon>
           خرید
+        </button>
+        <button ion-button round icon-right large type="button" color="danger" (click)="onCancelClicked()">
+          <ion-icon name="close"></ion-icon>
+          انصراف
         </button>
       </div>
     </div>

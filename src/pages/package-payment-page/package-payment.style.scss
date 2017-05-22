@@ -1,0 +1,88 @@
+pay-package {
+	h1 {
+		font-size: 2.2rem !important;
+	}
+    h2 {
+        font-size: 1.6rem !important;
+    }
+    input,
+    ion-input {
+        text-align: left;
+        direction: ltr;
+    }
+    ion-card {
+    	border-top: 4px solid color($colors, orange);
+    	border-radius: 20px !important;
+    	padding-right: 10px !important;
+    	min-width: 300px;
+    }
+    ion-checkbox {
+        margin-right: 9px !important;
+    }
+    .toolbar-ios .segment-button {
+    	max-width: 130px;
+    }
+    .item,
+    .item-md {
+        background-color: color($colors, white);
+    }
+    .item-inner {
+    	padding-right: 0px !important;
+    }
+    .right-border {
+        border-right: 1px solid color($colors, bluegrey);
+    }
+    .price {
+        font-size: 2.4rem;
+        color: color($colors, accent);
+        font-weight: bold;
+    }
+    .error-msg::before {
+        margin: 5px;
+    }
+    .error-msg {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+    }
+    .item-radio img {
+        -webkit-filter: grayscale(100%);
+        /* Safari 6.0 - 9.0 */
+        filter: grayscale(100%);
+    }
+    .item-radio-checked img {
+        -webkit-filter: grayscale(0%);
+        /* Safari 6.0 - 9.0 */
+        filter: grayscale(0%);
+    }
+    .item-ios,
+    .item-ios [item-right] {
+        margin: 0px !important;
+        padding-left: 0px;
+    }
+    .btn-icon::before {
+        width: 40px;
+        height: 40px;
+    }
+    .btn-icon {
+        font-size: 40px;
+    }
+    #search-btn {
+        width: 40px;
+        height: 40px;
+    }
+    .item-inner {
+        margin-left: 0px !important;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .select-icon {
+        margin-right: 10px;
+    }
+    .back-button {
+        -moz-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
+}
