@@ -8,7 +8,7 @@
         بسته‌های همراه
       </ion-segment-button>
       <ion-segment-button value="awesome">
-        بسته‌های شگفت انگیز
+        شگفت انگیز
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -19,60 +19,60 @@
       <ion-icon name='funnel' style="margin-right: 8px;"></ion-icon>
       <strong>تنظیمات نمایش بسته‌ها</strong>
     </ion-item>
-    <ion-row>
-      <ion-col col-6>
+    <ion-row radio-group [(ngModel)]="timeRange">
+      <ion-col>
         <ion-item>
           <ion-label>
-            بسته‌های ساعتی
+            ساعتی
           </ion-label>
-          <ion-checkbox [(ngModel)]="hourlyCheckbox" [disabled]="customerType == 'TDLTE'">
-          </ion-checkbox>
+          <ion-radio value="hourly" [disabled]="customerType == 'TDLTE'">
+          </ion-radio>
         </ion-item>
       </ion-col>
-      <ion-col col-6>
+      <ion-col>
         <ion-item>
           <ion-label>
-            بسته‌های روزانه
+            روزانه
           </ion-label>
-          <ion-checkbox [(ngModel)]="dailyCheckbox" [disabled]="customerType == 'TDLTE'">
-          </ion-checkbox>
+          <ion-radio value="daily" [disabled]="customerType == 'TDLTE'">
+          </ion-radio>
         </ion-item>
       </ion-col>
-      <ion-col col-6>
+      <ion-col>
         <ion-item>
           <ion-label>
-            بسته‌های هفتگی
+            هفتگی
           </ion-label>
-          <ion-checkbox [(ngModel)]="weeklyCheckbox" [disabled]="customerType == 'TDLTE'">
-          </ion-checkbox>
+          <ion-radio value="weekly" [disabled]="customerType == 'TDLTE'">
+          </ion-radio>
         </ion-item>
       </ion-col>
-      <ion-col col-6>
+      <ion-col>
         <ion-item>
           <ion-label>
-            بسته‌های ماهانه
+            ماهانه
           </ion-label>
-          <ion-checkbox [(ngModel)]="monthlyCheckbox">
-          </ion-checkbox>
+          <ion-radio value="monthly">
+          </ion-radio>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row radio-group [(ngModel)]="customerType">
-      <ion-col col-6 col-md-4>
+      <ion-col>
         <ion-item>
-          <ion-label>مشترکین اعتباری</ion-label>
+          <ion-label>اعتباری</ion-label>
           <ion-radio value="prepaid"></ion-radio>
         </ion-item>
       </ion-col>
-      <ion-col col-6 col-md-4>
+      <ion-col>
         <ion-item>
-          <ion-label>مشترکین دائمی</ion-label>
+          <ion-label>دائمی</ion-label>
           <ion-radio value="postpaid"></ion-radio>
         </ion-item>
       </ion-col>
-      <ion-col col-md-4>
+      <ion-col>
         <ion-item>
-          <ion-label>مشترکین اینترنت ثابت TDLTE</ion-label>
+          <ion-label>اینترنت ثابت TDLTE</ion-label>
           <ion-radio value="TDLTE"></ion-radio>
         </ion-item>
       </ion-col>
@@ -100,7 +100,7 @@
       </ion-col>
     </ng-container>
     <ng-container *ngIf="packageType == 'regular'">
-      <ion-col *ngFor="let item of packageList | filterPackages:customerType:hourlyCheckbox:dailyCheckbox:weeklyCheckbox:monthlyCheckbox">
+      <ion-col *ngFor="let item of packageList | filterPackages:customerType:timeRange">
         <ion-card (click)="onPackageSelected(item)">
           <p ion-text color='danger' class="text-center" style="font-size: 1.8rem;">
             {{ item.name | customerPipe }}
@@ -127,7 +127,7 @@
     <img src="assets/images/gears.svg">
   </div>
   <div class="gears-div" *ngIf="dataReady == 'error'">
-    <ion-icon name='alert' color='danger' class='error-msg'>خطا در دریافت اطلاعات</ion-icon>
+    <ion-icon name='alert' color='danger' class='error-msg'>خطا در دریافت اطلاعات!<br> (اتصال به اینترنت را بررسی کنید)</ion-icon>
     <button ion-button color='secondary' block icon-right style="font-size: 2rem;" (click)="dataReady = 'loading'; getPackagesList()">
       <ion-icon name='refresh'></ion-icon>
       تلاش مجدد

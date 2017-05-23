@@ -18,6 +18,7 @@
     "@angular/http": "4.0.0",
     "@angular/platform-browser": "4.0.0",
     "@angular/platform-browser-dynamic": "4.0.0",
+    "@ionic-native/android-permissions": "^3.10.3",
     "@ionic-native/barcode-scanner": "^3.6.1",
     "@ionic-native/contacts": "^3.6.1",
     "@ionic-native/core": "3.6.1",

@@ -5,11 +5,6 @@ buy-package {
     h2 {
         font-size: 1.6rem !important;
     }
-    input,
-    ion-input {
-        text-align: left;
-        direction: ltr;
-    }
     ion-card {
     	border-top: 4px solid color($colors, orange);
     	border-radius: 20px !important;
@@ -83,9 +78,6 @@ buy-package {
     }
     .select-icon {
         margin-right: 10px;
-    }
-    .segment-md .segment-button {
-        font-size: 16px !important;
     }
     .label-md {
         margin-right: 5px;

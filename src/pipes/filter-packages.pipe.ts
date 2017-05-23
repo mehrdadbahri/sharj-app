@@ -5,9 +5,11 @@ import { Injectable, Pipe, PipeTransform } from '@angular/core';
 })
 @Injectable()
 export class FilterPackages implements PipeTransform {
-  transform(value: any, customerType, cb1, cb2, cb3, cb4) {
-    let cbArray : Boolean[] = [cb1, cb2, cb3, cb4]
-    value = value.filter(item => {
+  transform(value: any, customerType, timeRange) {
+    if(customerType == "TDLTE") { // TDLTE only has monthly packages
+      timeRange = 'monthly';
+    }
+    value = value.filter(item => { // filter by customerType
       if(customerType == "prepaid") {
         return !item.name.includes("دائمی") && !item.name.includes("TDLTE");;
       }
@@ -16,41 +18,18 @@ export class FilterPackages implements PipeTransform {
       }
       return item.name.includes("دائمی");
     });
-    let filteredValue : Object[] = [];
-    value.forEach((item) => {
-      if(customerType == "TDLTE") {
-        cbArray[0] = cbArray[1] = cbArray[2] = false;
+    value = value.filter(item => { // filter by timeRange
+      if(timeRange == "hourly") {
+        return item.name.includes('ساعت');
       }
-      let obj : any;
-      let index : number = 0;
-      for (obj in cbArray){
-        if (cbArray[index]){
-          switch (index) {
-            case 0:
-            if(item.name.includes('ساعت')){
-              filteredValue.push(item);
-            }
-            break;
-            case 1:
-            if (item.name.includes('روز')){
-              filteredValue.push(item);
-            }
-            break;
-            case 2:
-            if(item.name.includes('هفتگی')){
-              filteredValue.push(item);
-            }
-            break;
-            case 3:
-            if (item.name.includes('ماه')){
-              filteredValue.push(item);
-            }
-            break;
-          }
-        }
-        index++;
+      if(timeRange == "daily") {
+        return item.name.includes('روز');
       }
+      if(timeRange == "weekly") {
+        return item.name.includes('هفتگی');
+      }
+      return item.name.includes('ماه');
     });
-    return filteredValue;
+    return value;
   }
 }

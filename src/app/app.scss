@@ -46,7 +46,7 @@ h5,
 }
 
 ion-segment-button {
-    font-size: 18px !important;
+    font-size: 14px !important;
 }
 
 .list-header, .list-header-md {
@@ -59,4 +59,10 @@ ion-segment-button {
 
 ion-app.md [padding] .scroll-content {
     padding: 16px 10px !important;
+}
+input,
+ion-input {
+    text-align: left;
+    direction: ltr;
+    font-size: 12px;
 }

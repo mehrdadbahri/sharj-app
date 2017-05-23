@@ -35,9 +35,9 @@ export class ChargeKioosk {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.platform.registerBackButtonAction(function () {
+      // this.platform.registerBackButtonAction(function () {
         
-      }, 100);
+      // }, 100);
     });
   }
 

@@ -1,10 +1,4 @@
 buy-charge {
-
-    input,
-    ion-input {
-        text-align: left;
-        direction: ltr;
-    }
     .item-radio img {
         -webkit-filter: grayscale(100%);
         /* Safari 6.0 - 9.0 */
@@ -36,15 +30,15 @@ buy-charge {
         margin-right: 0px !important;
     }
     .btn-icon::before {
-        width: 40px;
-        height: 40px;
+        width: 25px;
+        height: 28px;
     }
     .btn-icon {
-        font-size: 40px;
+        font-size: 25px;
     }
     #search-btn {
-        width: 40px;
-        height: 40px;
+        width: 25px;
+        height: 28px;
     }
     .item-inner {
         margin-left: 0px !important;

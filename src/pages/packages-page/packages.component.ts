@@ -14,13 +14,10 @@ export class packagePage {
 	// @ViewChild(Content) content: Content;
 	private packageType : String = 'regular';
 	private customerType : String = 'prepaid';
+	private timeRange : String = 'monthly';
 	private packages : Object;
 	private awesomePackages : Object[];
 	private packageList : Object[] = [];
-	private hourlyCheckbox : Boolean = false;
-	private dailyCheckbox : Boolean = false;
-	private weeklyCheckbox : Boolean = false;
-	private monthlyCheckbox : Boolean = true;
 	private dataReady : string = 'loading';
 
 	constructor(

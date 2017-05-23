@@ -27,9 +27,9 @@
         <ion-icon name='phone-portrait' color='bluegrey' item-left></ion-icon>
         <ion-label>شماره موبایل</ion-label>
         <ion-input type="text" maxlength="11" placeholder="09123456789" formControlName="phone_number" class="form-controll" (focus)="showSearchIcon = false" (focusout)="onPhoneInputFocusout($event)" #phone_input></ion-input>
-        <button ion-button icon-only item-right clear id="search-btn" *ngIf="showSearchIcon" (click)="onSearchContactClick(phone_input)">
+        <div ion-button icon-only item-right clear id="search-btn" *ngIf="showSearchIcon" (click)="onSearchContactClick(phone_input)">
           <ion-icon name='search' class='btn-icon'></ion-icon>
-        </button>
+        </div>
       </ion-item>
       <ion-item>
         <ion-icon name='cash' color='bluegrey' item-left></ion-icon>
