@@ -29,8 +29,8 @@ export class PaymentLinkProvider {
 			'redirectToPage' : 'False'
 
 		};
-		// let url : string = 'https://chr724.ir/services/v3/EasyCharge/topup';
-		let url : string = 'http://localhost:8100/api/services/v3/EasyCharge/topup';
+		let url : string = 'https://chr724.ir/services/v3/EasyCharge/topup';
+		// let url : string = 'http://localhost:8100/api/services/v3/EasyCharge/topup';
 		let headers = new Headers({'Content-Type':'application/json'});
 		let options = new RequestOptions({ headers: headers});
 		return this.http.post(url, JSON.stringify(data), options);
@@ -53,8 +53,8 @@ export class PaymentLinkProvider {
 			'redirectToPage' : 'False'
 
 		};
-		// let url : string = 'https://chr724.ir/services/v3/EasyCharge/BuyProduct';
-		let url : string = 'http://localhost:8100/api/services/v3/EasyCharge/BuyProduct';
+		let url : string = 'https://chr724.ir/services/v3/EasyCharge/BuyProduct';
+		// let url : string = 'http://localhost:8100/api/services/v3/EasyCharge/BuyProduct';
 		let headers = new Headers({'Content-Type':'application/json'});
 		let options = new RequestOptions({ headers: headers});
 		return this.http.post(url, JSON.stringify(data), options);
@@ -77,8 +77,8 @@ export class PaymentLinkProvider {
 			'redirectToPage' : 'False'
 
 		};
-		// let url : string = 'https://chr724.ir/services/v3/EasyCharge/internetRecharge';
-		let url : string = 'http://localhost:8100/api/services/v3/EasyCharge/internetRecharge';
+		let url : string = 'https://chr724.ir/services/v3/EasyCharge/internetRecharge';
+		// let url : string = 'http://localhost:8100/api/services/v3/EasyCharge/internetRecharge';
 		let headers = new Headers({'Content-Type':'application/json'});
 		let options = new RequestOptions({ headers: headers});
 		return this.http.post(url, JSON.stringify(data), options);

@@ -1,10 +1,7 @@
 {
-    "name": "آسان شارژ",
+    "name": "کیوسک شارژ",
     "app_id": "",
     "v2": true,
     "typescript": true,
-    "proxies": [{
-        "path": "/api",
-        "proxyUrl": "https://chr724.ir"
-    }]
+    "proxies": []
 }
