@@ -49,11 +49,11 @@ export class chargePage {
 	ionViewWillLoad() {
 		this.chargeForm = new FormGroup({
 			phone_number: new FormControl('', 
-				Validators.compose([
+				[
 					Validators.minLength(11),
-					Validators.pattern('^[09]{2}[0-9]{9}$'),
-					Validators.required 
-					])),
+					Validators.pattern('((09)|(\\+?989))[0-9]{9}'),
+					Validators.required
+				]),
 			operator: new FormControl('MTN', Validators.required),
 			amount: new FormControl(2000, Validators.required),
 			awesome: new FormControl(false, Validators.required),
@@ -71,12 +71,37 @@ export class chargePage {
 		}
 	}
 
-	onSearchContactClick(input : any){
+	onSearchContactClick(){
 		this.contacts.pickContact().then(
 			(contact: Contact) => {
+				let selectedNumber : String;
 				if (contact.phoneNumbers){
-					input.value = contact.phoneNumbers[0];
-					this.saveContact = false;
+					if (contact.phoneNumbers.length > 1){
+						let alert = this.alertCtrl.create();
+					    alert.setTitle('انتخاب شماره');
+					    for (let number of contact.phoneNumbers){
+					    	alert.addInput({
+						      type: 'radio',
+						      label: number.value.replace(/ /g,''),
+						      value: number.value.replace(/ /g,''),
+						    });
+					    }
+					    alert.addButton('انصراف');
+					    alert.addButton({
+					      text: 'تایید',
+					      handler: data => {
+					        selectedNumber = data;
+					        this.chargeForm.controls['phone_number'].setValue(selectedNumber)
+							this.saveContact = false;
+					      }
+					    });
+					    alert.present();
+					}
+					else if (contact.phoneNumbers.length == 1) {
+						selectedNumber = contact.phoneNumbers[0].value.replace(/ /g,'');
+						this.chargeForm.controls['phone_number'].setValue(selectedNumber)
+						this.saveContact = false;
+					}
 				}
 			}, (error: any) => {
 				console.log("error in picking contact!");
@@ -111,8 +136,11 @@ export class chargePage {
 			.subscribe((result : any) => {
 				loader.dismiss();
 				if(result.status == 'Success') {
-					console.log(result.paymentInfo.url);
-					const browser = this.iab.create(result.paymentInfo.url, '_blank', 'location=true');
+					var options = {
+				      location: 'yes',
+				      zoom: 'no',
+				    };
+					const browser = this.iab.create(result.paymentInfo.url, '_blank', "location=yes,zoom=no");
 					browser.show();
 				}
 				else if(result.status == 'Error') {

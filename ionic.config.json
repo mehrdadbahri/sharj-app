@@ -1,7 +1,6 @@
 {
-    "name": "کیوسک شارژ",
-    "app_id": "",
-    "v2": true,
-    "typescript": true,
-    "proxies": []
+  "name": "کیوسک شارژ",
+  "app_id": "",
+  "proxies": [],
+  "type": "ionic-angular"
 }
