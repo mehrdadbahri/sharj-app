@@ -23,7 +23,6 @@ export class ChargeKioosk {
     this.pages = [
     { title: 'خرید شارژ (همه اپراتورها)', component: 'chargePage' },
     { title: 'بسته‌های اینترنتی ایرانسل', component: 'packagePage' },
-    { title: 'پرداخت قبض و جرایم رانندگی', component: 'billPage' },
     { title: 'خرید گیفت کارت', component: 'giftcardPage' },
     ];
 
