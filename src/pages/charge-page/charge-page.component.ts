@@ -41,7 +41,7 @@ export class chargePage {
 		private alertCtrl : AlertController,
 		private storage : Storage,
 		private contacts : Contacts,
-		private iab: InAppBrowser
+		private iab: InAppBrowser,
 		){
 
 	}

@@ -13,17 +13,17 @@ export class ChargeKioosk {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+  constructor(
+      private platform: Platform,
+      private splashScreen: SplashScreen,
+      private statusBar: StatusBar,
     ) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
     this.pages = [
-    { title: 'خرید شارژ (همه اپراتورها)', component: 'chargePage' },
-    { title: 'بسته‌های اینترنتی ایرانسل', component: 'packagePage' },
-    { title: 'خرید گیفت کارت', component: 'giftcardPage' },
+      { title: 'خرید شارژ (همه اپراتورها)', component: 'chargePage' },
+      { title: 'بسته‌های اینترنتی ایرانسل', component: 'packagePage' },
+      { title: 'خرید گیفت کارت', component: 'giftcardPage' },
     ];
 
   }
@@ -41,8 +41,16 @@ export class ChargeKioosk {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+      this.nav.setRoot(page.component);
   }
+
+  submitComment(){
+      let PACKAGE_NAME : String = 'com.ionicframework.KiooskSharj';
+      const options = {
+      action: window['plugins'].intentShim.ACTION_EDIT,
+      url: 'bazaar://details?id=' + PACKAGE_NAME,
+      package: 'com.farsitel.bazaar'
+      };
+       window['plugins'].intentShim.startActivity(options, function() {}, function() {alert('Failed to open URL via Android Intent')});
+    }
 }

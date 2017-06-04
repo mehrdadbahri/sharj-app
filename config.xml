@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.KiooskSharj" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="2" id="com.ionicframework.KiooskSharj" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>کیوسک شارژ</name>
     <description>برنامه‌ای برای خرید آسان شارژ و بسته‌های اینترنتی.</description>
     <author email="mehrdadbahri71@gmail.com" href="https://cafebazaar.ir/developer/7313/?l=fa">Mehrdad Bahri</author>
@@ -97,5 +97,6 @@
         <variable name="XWALK_MODE" value="embedded"/>
         <variable name="XWALK_MULTIPLEAPK" value="true"/>
     </plugin>
+    <plugin name="com-darryncampbell-cordova-plugin-intent" spec="https://github.com/darryncampbell/darryncampbell-cordova-plugin-intent.git"/>
     <engine name="android" spec="~6.1.2"/>
 </widget>

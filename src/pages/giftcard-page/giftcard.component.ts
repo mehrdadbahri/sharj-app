@@ -67,8 +67,10 @@ export class giftcardPage {
 					for (k in giftcards[key]){
 						if (giftcards[key][k].id.toLowerCase().includes('itunes'))
 							giftcards[key][k].imgSrc = 'assets/images/itunes.png';
-						else if (giftcards[key][k].id.toLowerCase().includes('googleplay'))
+						else if (giftcards[key][k].id.toLowerCase().includes('googleplay')){
 							giftcards[key][k].imgSrc = 'assets/images/google-play.png';
+							giftcards[key][k].name = giftcards[key][k].name.replace('پلی ', '');
+						}
 						else if (giftcards[key][k].id.toLowerCase().includes('microsoft'))
 							giftcards[key][k].imgSrc = 'assets/images/microsoft.png';
 						else if (giftcards[key][k].id.toLowerCase().includes('amazon'))
@@ -105,12 +107,37 @@ export class giftcardPage {
 		});
 	}
 
-	onSearchContactClick(input : any){
+	onSearchContactClick(){
 		this.contacts.pickContact().then(
 			(contact: Contact) => {
+				let selectedNumber : String;
 				if (contact.phoneNumbers){
-					input.value = contact.phoneNumbers[0];
-					this.saveContact = false;
+					if (contact.phoneNumbers.length > 1){
+						let alert = this.alertCtrl.create();
+					    alert.setTitle('انتخاب شماره');
+					    for (let number of contact.phoneNumbers){
+					    	alert.addInput({
+						      type: 'radio',
+						      label: number.value.replace(/ /g,''),
+						      value: number.value.replace(/ /g,''),
+						    });
+					    }
+					    alert.addButton('انصراف');
+					    alert.addButton({
+					      text: 'تایید',
+					      handler: data => {
+					        selectedNumber = data;
+					        this.giftcardForm.controls['phone_number'].setValue(selectedNumber)
+							this.saveContact = false;
+					      }
+					    });
+					    alert.present();
+					}
+					else if (contact.phoneNumbers.length == 1) {
+						selectedNumber = contact.phoneNumbers[0].value.replace(/ /g,'');
+						this.giftcardForm.controls['phone_number'].setValue(selectedNumber)
+						this.saveContact = false;
+					}
 				}
 			}, (error: any) => {
 				console.log("error in picking contact!");
