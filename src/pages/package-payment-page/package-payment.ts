@@ -6,6 +6,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Contacts, Contact } from '@ionic-native/contacts';
+import { Diagnostic } from '@ionic-native/diagnostic';
 import { PaymentLinkProvider } from '../../providers/payment-link.provider';
 import { Response } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -31,7 +32,8 @@ export class packagePaymentPage {
 		private contacts : Contacts,
 		private iab: InAppBrowser,
 		private navCtrl: NavController,
-		private navParams: NavParams
+		private navParams: NavParams,
+		private diagnostic: Diagnostic,
 		) {
 
 		this.selectedPackage = navParams.get('item');
@@ -53,18 +55,58 @@ export class packagePaymentPage {
 		})
 	}
 
-	onSearchContactClick(input : any){
+	onSearchContactClick(){
+		this.diagnostic.isContactsAuthorized().then(authorised => {
+            if (authorised) {
+                this.getContact();
+            }
+            else {
+                this.diagnostic.requestContactsAuthorization().then(authorisation => {
+                    if(authorisation == this.diagnostic.permissionStatus.GRANTED){
+                    	this.getContact();
+                    }
+                });
+            }
+        });
+	}
+
+	getContact(){
 		this.contacts.pickContact().then(
 			(contact: Contact) => {
+				let selectedNumber : String;
 				if (contact.phoneNumbers){
-					input.value = contact.phoneNumbers[0];
-					this.saveContact = false;
+					if (contact.phoneNumbers.length > 1){
+						let alert = this.alertCtrl.create();
+					    alert.setTitle('انتخاب شماره');
+					    for (let number of contact.phoneNumbers){
+					    	alert.addInput({
+						      type: 'radio',
+						      label: number.value.replace(/ /g,''),
+						      value: number.value.replace(/ /g,''),
+						    });
+					    }
+					    alert.addButton('انصراف');
+					    alert.addButton({
+					      text: 'تایید',
+					      handler: data => {
+					        selectedNumber = data;
+					        this.packageForm.controls['phone_number'].setValue(selectedNumber)
+							this.saveContact = false;
+					      }
+					    });
+					    alert.present();
+					}
+					else if (contact.phoneNumbers.length == 1) {
+						selectedNumber = contact.phoneNumbers[0].value.replace(/ /g,'');
+						this.packageForm.controls['phone_number'].setValue(selectedNumber)
+						this.saveContact = false;
+					}
 				}
 			}, (error: any) => {
 				console.log("error in picking contact!");
 				console.log(error)
 			}
-			);
+		);
 	}
 
 	onSubmit(values){
@@ -87,9 +129,7 @@ export class packagePaymentPage {
 		.subscribe((result : any) => {
 			loader.dismiss();
 			if(result.status == 'Success') {
-				console.log(result.paymentInfo.url);
-				const browser = this.iab.create(result.paymentInfo.url, '_blank', 'location=true');
-				browser.show();
+				const browser = this.iab.create(result.paymentInfo.url, '_system');
 			}
 			else if(result.status == 'Error') {
 				let alert = this.alertCtrl.create({

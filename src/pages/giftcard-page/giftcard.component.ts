@@ -6,6 +6,7 @@ import { DataProvider } from '../../providers/data.provider'
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Contacts, Contact } from '@ionic-native/contacts';
+import { Diagnostic } from '@ionic-native/diagnostic';
 import { PaymentLinkProvider } from '../../providers/payment-link.provider';
 import { Response } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -31,7 +32,8 @@ export class giftcardPage {
 		private alertCtrl : AlertController,
 		private storage : Storage,
 		private contacts : Contacts,
-		private iab: InAppBrowser
+		private iab: InAppBrowser,
+		private diagnostic: Diagnostic,
 		) {
 	}
 
@@ -108,6 +110,21 @@ export class giftcardPage {
 	}
 
 	onSearchContactClick(){
+		this.diagnostic.isContactsAuthorized().then(authorised => {
+            if (authorised) {
+                this.getContact();
+            }
+            else {
+                this.diagnostic.requestContactsAuthorization().then(authorisation => {
+                    if(authorisation == this.diagnostic.permissionStatus.GRANTED){
+                    	this.getContact();
+                    }
+                });
+            }
+        });
+	}
+
+	getContact(){
 		this.contacts.pickContact().then(
 			(contact: Contact) => {
 				let selectedNumber : String;
@@ -143,7 +160,7 @@ export class giftcardPage {
 				console.log("error in picking contact!");
 				console.log(error)
 			}
-			);
+		);
 	}
 
 	onSubmit(values){
@@ -166,9 +183,7 @@ export class giftcardPage {
 		.subscribe((result : any) => {
 			loader.dismiss();
 			if(result.status == 'Success') {
-				console.log(result.paymentInfo.url);
-				const browser = this.iab.create(result.paymentInfo.url, '_blank', 'location=true');
-				browser.show();
+				const browser = this.iab.create(result.paymentInfo.url, '_system');
 			}
 			else if(result.status == 'Error') {
 				let alert = this.alertCtrl.create({

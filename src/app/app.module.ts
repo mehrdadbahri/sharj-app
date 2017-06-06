@@ -8,6 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Contacts, Contact } from '@ionic-native/contacts';
 import { WebIntent } from '@ionic-native/web-intent';
+import { Diagnostic } from '@ionic-native/diagnostic';
 import { DataProvider } from '../providers/data.provider';
 import { PaymentLinkProvider } from '../providers/payment-link.provider';
 import { ChargeKioosk } from './app.component';
@@ -33,6 +34,7 @@ import { ChargeKioosk } from './app.component';
     StatusBar,
     SplashScreen,
     WebIntent,
+    Diagnostic,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DataProvider,
     PaymentLinkProvider

@@ -3,6 +3,7 @@ import { IonicPage } from 'ionic-angular';
 import { FocusEvent } from '@angular/event';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Contacts, Contact } from '@ionic-native/contacts';
+import { Diagnostic } from '@ionic-native/diagnostic';
 import { Platform, LoadingController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Validators, FormControl, FormGroup} from '@angular/forms';
@@ -42,6 +43,7 @@ export class chargePage {
 		private storage : Storage,
 		private contacts : Contacts,
 		private iab: InAppBrowser,
+		private diagnostic: Diagnostic,
 		){
 
 	}
@@ -72,6 +74,21 @@ export class chargePage {
 	}
 
 	onSearchContactClick(){
+		this.diagnostic.isContactsAuthorized().then(authorised => {
+            if (authorised) {
+                this.getContact();
+            }
+            else {
+                this.diagnostic.requestContactsAuthorization().then(authorisation => {
+                    if(authorisation == this.diagnostic.permissionStatus.GRANTED){
+                    	this.getContact();
+                    }
+                });
+            }
+        });
+	}
+
+	getContact(){
 		this.contacts.pickContact().then(
 			(contact: Contact) => {
 				let selectedNumber : String;
@@ -107,7 +124,7 @@ export class chargePage {
 				console.log("error in picking contact!");
 				console.log(error)
 			}
-			);
+		);
 	}
 
 	onSubmit(values){
@@ -136,12 +153,7 @@ export class chargePage {
 			.subscribe((result : any) => {
 				loader.dismiss();
 				if(result.status == 'Success') {
-					var options = {
-				      location: 'yes',
-				      zoom: 'no',
-				    };
-					const browser = this.iab.create(result.paymentInfo.url, '_blank', "location=yes,zoom=no");
-					browser.show();
+					var browser = this.iab.create(result.paymentInfo.url, '_system');
 				}
 				else if(result.status == 'Error') {
 					let alert = this.alertCtrl.create({
